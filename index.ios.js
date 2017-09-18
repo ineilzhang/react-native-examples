@@ -14,49 +14,37 @@ import {
 } from 'react-native';
 
 /*
- There are two types of data that control a component: props and state.
- props are set by the parent and they are fixed throughout the lifetime of a component.
- For data that is going to change, we have to use state.
+ All of the core components accept a prop named style.
+ The style names and values usually match how CSS works on the web,
+ except names are written using camel casing, e.g backgroundColor rather than background-color.
 
- In general, you should initialize state in the constructor, and then call setState when you want to change it.
+ As a component grows in complexity, it is often cleaner to use StyleSheet.create to define several styles in one place.
  */
 
 export default class BlinkApp extends Component{
   render(){
     return(
-        <Blink text="haha"></Blink>
+        <View style={{paddingTop: 100}}>
+          <Text style={styles.bigBlue}>bigBlue</Text>
+          <Text style={styles.smallGreen}>smallGreen</Text>
+          <Text style={styles.bigBule,styles.smallGreen}>bigBlue,smallGreen</Text>
+          <Text style={styles.smallGreen,styles.bigBlue}>smallGreen,bigBlue</Text>
+        </View>
     );
   }
 }
 
-class Blink extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      showText : true,
-    };
-    // Toggle the state every second
-    setInterval(() => {
-      this.setState((previousState) =>{
-        return {
-          showText : !previousState.showText,
-        };
-      });
-    },1000);
-  }
-  render(){
-    let display = this.state.showText ? this.props.text : '';
-    return(
-        <Text style={styles.textAbout}>{display}</Text>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
-  textAbout :{
-    paddingTop : 100,
-    paddingLeft : 100,
-  }
+  bigBlue : {
+    backgroundColor : 'black',
+    color : 'blue',
+    fontSize : 50,
+    fontWeight : 'bold',
+  },
+  smallGreen : {
+    color : 'green',
+  },
 });
 
 
