@@ -14,69 +14,51 @@ import {
 } from 'react-native';
 
 /*
-一个 module 只能导出一个组件。
-Most components can be customized when they are created, with different parameters.
-These creation parameters are called props.
-For example, one basic React Native component is the Image.
-When you create an image, you can use a prop named source to control what image it shows.
-*/
+ There are two types of data that control a component: props and state.
+ props are set by the parent and they are fixed throughout the lifetime of a component.
+ For data that is going to change, we have to use state.
 
-export default class Bananas extends Component{
-  render() {
-    let pic = {
-      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
-    };
-    return (
-        <View style={styles.bananaLocation}>
-          {/*
-           Using name as a prop lets us customize the Greeting component, so we can reuse that component for each of our greetings.
-           This example also uses the Greeting component in JSX, just like the built-in components.
-          */}
-          <BananaText name={"bananas"}></BananaText>
-          {/*
-           Notice that {pic} is surrounded by braces, to embed the variable pic into JSX.
-           You can put any JavaScript expression inside braces in JSX.
-          */}
-          <Image source={pic} style={styles.bananaPicSize}></Image>
-        </View>
-    );
-  }
-}
+ In general, you should initialize state in the constructor, and then call setState when you want to change it.
+ */
 
-class BananaText extends Component{
+export default class BlinkApp extends Component{
   render(){
     return(
-        <Text>Those are {this.props.name}</Text>
+        <Blink text="haha"></Blink>
     );
   }
 }
 
+class Blink extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      showText : true,
+    };
+    // Toggle the state every second
+    setInterval(() => {
+      this.setState((previousState) =>{
+        return {
+          showText : !previousState.showText,
+        };
+      });
+    },1000);
+  }
+  render(){
+    let display = this.state.showText ? this.props.text : '';
+    return(
+        <Text style={styles.textAbout}>{display}</Text>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  bananaPicSize: {
-    width: 200,
-    height: 200,
-  },
-  bananaLocation:{
-    alignItems: 'center',
-    paddingTop: 100,
-  },
+  textAbout :{
+    paddingTop : 100,
+    paddingLeft : 100,
+  }
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => Bananas);
+
+
+AppRegistry.registerComponent('AwesomeProject', () => BlinkApp);
