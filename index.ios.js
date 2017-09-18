@@ -24,11 +24,10 @@ import {
 export default class BlinkApp extends Component{
   render(){
     return(
-        <View style={{paddingTop: 100}}>
-          <Text style={styles.bigBlue}>bigBlue</Text>
-          <Text style={styles.smallGreen}>smallGreen</Text>
-          <Text style={styles.bigBule,styles.smallGreen}>bigBlue,smallGreen</Text>
-          <Text style={styles.smallGreen,styles.bigBlue}>smallGreen,bigBlue</Text>
+        <View style={{paddingTop: 24,width: 100,height: 100,flexDirection: 'row'}}>
+          <View style={styles.small}></View>
+          <View style={styles.middle}></View>
+          <View style={styles.big}></View>
         </View>
     );
   }
@@ -36,14 +35,23 @@ export default class BlinkApp extends Component{
 
 
 const styles = StyleSheet.create({
-  bigBlue : {
-    backgroundColor : 'black',
-    color : 'blue',
-    fontSize : 50,
-    fontWeight : 'bold',
+  small: {
+    flex: 1,
+    backgroundColor: 'red',
+    // height: 100,
+    // width: 100,
   },
-  smallGreen : {
-    color : 'green',
+  middle: {
+    flex: 2,
+    backgroundColor: 'green',
+    // height: 200,
+    // width: 200,
+  },
+  big: {
+    flex: 3,
+    backgroundColor: 'blue',
+    // height: 340,
+    // width: 340,
   },
 });
 
