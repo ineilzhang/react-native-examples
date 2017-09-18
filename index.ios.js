@@ -9,85 +9,48 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Image,
 } from 'react-native';
 
 /*
- 在ES5里，要导出一个类给别的模块用，一般通过module.exports来导出
+一个 module 只能导出一个组件。
+Most components can be customized when they are created, with different parameters.
+These creation parameters are called props.
+For example, one basic React Native component is the Image.
+When you create an image, you can use a prop named source to control what image it shows.
+*/
 
- //ES5
- var MyComponent = React.createClass({
- ...
- });
-
- module.exports = MyComponent;
-
- 在ES6里，通常用export default来实现相同的功能：
-
- //ES6
- export default class MyComponent extends Component{
- ...
- }
-
- 引用的时候也类似：
-
- //ES5
- var MyComponent = require('./MyComponent');
-
- //ES6
- import MyComponent from './MyComponent';
- 注意导入和导出的写法必须配套，不能混用！
- */
-
-export default class AwesomeProject extends Component {
-
-  /*
-   给组件定义方法
-
-   给组件定义方法不再用 名字: function() 的写法，而是直接用 方法名() ，在方法的最后也不能有逗号了。
-
-   //ES5
-   var Photo = React.createClass({
-   componentWillMount: function(){
-
-   },
-   render: function() {
-   return (
-   <Image source={this.props.source} />
-   );
-   },
-   });
-   //ES6
-   class Photo extends React.Component {
-   componentWillMount() {
-
-   }
-   render() {
-   return (
-   <Image source={this.props.source} />
-   );
-   }
-   }
-   */
-
-
+export default class Bananas extends Component{
   render() {
+    let pic = {
+      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
+    };
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+        <View style={styles.bananaLocation}>
+          {/*
+           Using name as a prop lets us customize the Greeting component, so we can reuse that component for each of our greetings.
+           This example also uses the Greeting component in JSX, just like the built-in components.
+          */}
+          <BananaText name={"bananas"}></BananaText>
+          {/*
+           Notice that {pic} is surrounded by braces, to embed the variable pic into JSX.
+           You can put any JavaScript expression inside braces in JSX.
+          */}
+          <Image source={pic} style={styles.bananaPicSize}></Image>
+        </View>
     );
   }
 }
+
+class BananaText extends Component{
+  render(){
+    return(
+        <Text>Those are {this.props.name}</Text>
+    );
+  }
+}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -106,6 +69,14 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  bananaPicSize: {
+    width: 200,
+    height: 200,
+  },
+  bananaLocation:{
+    alignItems: 'center',
+    paddingTop: 100,
+  },
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+AppRegistry.registerComponent('AwesomeProject', () => Bananas);
