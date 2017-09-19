@@ -11,59 +11,41 @@ import {
   Text,
   View,
   Image,
+  TextInput,
 } from 'react-native';
 
-/*
-
- */
-
-export default class BlinkApp extends Component{
+export default class PizzaTranslator extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      text: '',
+    };
+  }
   render(){
+    //login and &&
+    let test = ' ' && 'H';
+    console.log("neil:test="+test);
     return(
-        //flex‘s priority is bigger than height or width
-        <View style={styles.container}>
-          <View style={styles.small}></View>
-          <View style={styles.middle}></View>
-          <View style={styles.big}></View>
+        <View style={{padding: 10}}>
+          <TextInput
+              style={{height: 40}}
+              placeholder="Type here to translate."
+              onChangeText={(text) => {
+                this.setState(
+                    {text}
+                );
+              }}
+          />
+          <Text style={{padding: 10, fontSize: 40}}>
+            {/*
+             https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
+            */}
+            {this.state.text.split(' ').map((word) => word && 'H').join('&')}
+          </Text>
         </View>
     );
   }
 }
 
 
-const styles = StyleSheet.create({
-
-  container: {
-    // paddingTop: 24,
-    top: 24,
-    flex: 1,
-    flexDirection: 'column',
-    //Available options are flex-start, center, flex-end, space-around, and space-between.
-    justifyContent: 'flex-start',
-    //Available options are flex-start, center, flex-end, and stretch.
-    alignItems: 'flex-start',
-    //more: https://facebook.github.io/react-native/docs/layout-props.html
-  },
-  small: {
-    // flex: 1,
-    backgroundColor: 'red',
-    height: 100,
-    width: 100,
-  },
-  middle: {
-    // flex: 2,
-    backgroundColor: 'green',
-    height: 100,
-    width: 100,
-  },
-  big: {
-    // flex: 3,
-    backgroundColor: 'blue',
-    height: 100,
-    width: 100,
-  },
-});
-
-
-
-AppRegistry.registerComponent('AwesomeProject', () => BlinkApp);
+AppRegistry.registerComponent('AwesomeProject', () => PizzaTranslator);
