@@ -1,111 +1,141 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+
+{/*import React, { Component } from 'react';*/}
+{/*import {*/}
+  {/*AppRegistry,*/}
+  {/*StyleSheet,*/}
+  {/*Text,*/}
+  {/*View,*/}
+  {/*Button,*/}
+  {/*Alert,*/}
+{/*} from 'react-native';*/}
+
+{/*export default class ButtonBasics extends Component {*/}
+  {/*_onPressButton(prop){*/}
+    {/*Alert.alert("You tap the button."+prop);*/}
+  {/*}*/}
+  {/*render(){*/}
+    {/*return(*/}
+        {/*<View style={styles.container}>*/}
+          {/*<View style={styles.buttonContainer}>*/}
+            {/*<Button*/}
+                {/*onPress={this._onPressButton}*/}
+                {/*title="Press me."*/}
+            {/*>*/}
+            {/*</Button>*/}
+          {/*</View>*/}
+          {/*<View style={styles.buttonContainer}>*/}
+            {/*<Button*/}
+                {/*onPress={this._onPressButton}*/}
+                {/*title="Press me."*/}
+                {/*color="#841584"*/}
+            {/*>*/}
+            {/*</Button>*/}
+          {/*</View>*/}
+          {/*<View style={styles.alternativeLayoutButtonContainer}>*/}
+            {/*<Button*/}
+                {/*onPress={this._onPressButton}*/}
+                {/*title="one"*/}
+            {/*>*/}
+            {/*</Button>*/}
+            {/*<Button*/}
+                {/*onPress={this._onPressButton}*/}
+                {/*title="two"*/}
+                {/*color="#841584"*/}
+            {/*>*/}
+            {/*</Button>*/}
+          {/*</View>*/}
+        {/*</View>*/}
+    {/*);*/}
+  {/*}*/}
+{/*}*/}
+
+{/*const styles = StyleSheet.create({*/}
+  {/*container: {*/}
+    {/*// flex: 1,*/}
+    {/*// justifyContent: 'center',*/}
+    {/*// alignItems: 'center',*/}
+    {/*// backgroundColor: '#F5FCFF',*/}
+  {/*},*/}
+  {/*buttonContainer: {*/}
+    {/*margin: 20,*/}
+  {/*},*/}
+  {/*alternativeLayoutButtonContainer: {*/}
+    {/*margin: 20,*/}
+    {/*flexDirection: 'row',*/}
+    {/*justifyContent: 'space-between',*/}
+  {/*},*/}
+{/*});*/}
+
+{/*AppRegistry.registerComponent('AwesomeProject', () => ButtonBasics);*/}
 
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { Alert, AppRegistry, Platform, StyleSheet, Text, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, View } from 'react-native';
 
-/*
- 在ES5里，要导出一个类给别的模块用，一般通过module.exports来导出
+export default class Touchables extends Component {
+  _onPressButton() {
+    Alert.alert('You tapped the button!')
+  }
 
- //ES5
- var MyComponent = React.createClass({
- ...
- });
-
- module.exports = MyComponent;
-
- 在ES6里，通常用export default来实现相同的功能：
-
- //ES6
- export default class MyComponent extends Component{
- ...
- }
-
- 引用的时候也类似：
-
- //ES5
- var MyComponent = require('./MyComponent');
-
- //ES6
- import MyComponent from './MyComponent';
- 注意导入和导出的写法必须配套，不能混用！
- */
-
-export default class AwesomeProject extends Component {
-
-  /*
-   给组件定义方法
-
-   给组件定义方法不再用 名字: function() 的写法，而是直接用 方法名() ，在方法的最后也不能有逗号了。
-
-   //ES5
-   var Photo = React.createClass({
-   componentWillMount: function(){
-
-   },
-   render: function() {
-   return (
-   <Image source={this.props.source} />
-   );
-   },
-   });
-   //ES6
-   class Photo extends React.Component {
-   componentWillMount() {
-
-   }
-   render() {
-   return (
-   <Image source={this.props.source} />
-   );
-   }
-   }
-   */
+  _onLongPressButton() {
+    Alert.alert('You long-pressed the button!')
+  }
 
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+        <View style={styles.container}>
+          <TouchableHighlight onPress={this._onPressButton} underlayColor="white">
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>TouchableHighlight</Text>
+            </View>
+          </TouchableHighlight>
+          <TouchableOpacity onPress={this._onPressButton}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>TouchableOpacity</Text>
+            </View>
+          </TouchableOpacity>
+          {/*<TouchableNativeFeedback*/}
+              {/*onPress={this._onPressButton}*/}
+              {/*background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}>*/}
+            {/*<View style={styles.button}>*/}
+              {/*<Text style={styles.buttonText}>TouchableNativeFeedback</Text>*/}
+            {/*</View>*/}
+          {/*</TouchableNativeFeedback>*/}
+          <TouchableWithoutFeedback
+              onPress={this._onPressButton}
+          >
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>TouchableWithoutFeedback</Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableHighlight onPress={this._onPressButton} onLongPress={this._onLongPressButton} underlayColor="white">
+            <View style={styles.button}>
+              <Text adjustsFontSizeToFit={false} style={styles.buttonText}>Touchable with Long Press</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    paddingTop: 60,
+    alignItems: 'center'
+  },
+  button: {
+    marginBottom: 30,
+    width: 160,
+    height: 60,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#2196F3'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+  buttonText: {
+    padding: 20,
+    height: 60,
+    color: 'white'
+  }
+})
 
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+// skip this line if using Create React Native App
+AppRegistry.registerComponent('AwesomeProject', () => Touchables);
