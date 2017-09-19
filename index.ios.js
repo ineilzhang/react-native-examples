@@ -14,17 +14,14 @@ import {
 } from 'react-native';
 
 /*
- All of the core components accept a prop named style.
- The style names and values usually match how CSS works on the web,
- except names are written using camel casing, e.g backgroundColor rather than background-color.
 
- As a component grows in complexity, it is often cleaner to use StyleSheet.create to define several styles in one place.
  */
 
 export default class BlinkApp extends Component{
   render(){
     return(
-        <View style={{paddingTop: 24,width: 100,height: 100,flexDirection: 'row'}}>
+        //flex‘s priority is bigger than height or width
+        <View style={styles.container}>
           <View style={styles.small}></View>
           <View style={styles.middle}></View>
           <View style={styles.big}></View>
@@ -35,23 +32,35 @@ export default class BlinkApp extends Component{
 
 
 const styles = StyleSheet.create({
-  small: {
+
+  container: {
+    // paddingTop: 24,
+    top: 24,
     flex: 1,
+    flexDirection: 'column',
+    //Available options are flex-start, center, flex-end, space-around, and space-between.
+    justifyContent: 'flex-start',
+    //Available options are flex-start, center, flex-end, and stretch.
+    alignItems: 'flex-start',
+    //more: https://facebook.github.io/react-native/docs/layout-props.html
+  },
+  small: {
+    // flex: 1,
     backgroundColor: 'red',
-    // height: 100,
-    // width: 100,
+    height: 100,
+    width: 100,
   },
   middle: {
-    flex: 2,
+    // flex: 2,
     backgroundColor: 'green',
-    // height: 200,
-    // width: 200,
+    height: 100,
+    width: 100,
   },
   big: {
-    flex: 3,
+    // flex: 3,
     backgroundColor: 'blue',
-    // height: 340,
-    // width: 340,
+    height: 100,
+    width: 100,
   },
 });
 
